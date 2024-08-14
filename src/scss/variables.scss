@@ -1,0 +1,49 @@
+@font-face {
+  font-family: "advent-pro-regular";
+  src: url('../fonts/Advent_Pro/AdventPro-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "advent-pro-semiBold";
+  src: url('../fonts/Advent_Pro/AdventPro-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "bebas";
+  src: url('../fonts/Bebas_Neue/BebasNeue-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'dancing-script';
+  src: url('../fonts/Dancing_Script/DancingScript-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'inter-light';
+  src: url('../fonts/Inter/Inter_18pt-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'inter-regular';
+  src: url('../fonts/Inter/Inter_18pt-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'inter-semiBold';
+  src: url('../fonts/Inter/Inter_18pt-SemiBold.ttf') format('truetype');
+}
+
+// fontes
+$advent-pro-regular: 'advent-pro-regular', sans-serif;
+$advent-pro-semiBold: 'advent-pro-semiBold', sans-serif;
+$bebas: 'bebas', sans-serif;
+$dancing-script: 'dancing-script', sans-serif;
+$inter-light: 'inter-light', sans-serif;
+$inter-regular: 'inter-regular', sans-serif;
+$inter-semiBold: 'inter-semiBold', sans-serif;
+
+//cores
+$highlight-color: #FFD600;
+$backgroud-color: #151515;
+$backgroud-secondary: #282828;
+
