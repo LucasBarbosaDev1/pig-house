@@ -306,6 +306,72 @@ body {
   -webkit-appearance: none;
 }
 
+.c-footer {
+  display: flex;
+  flex-direction: column;
+  background-color: #282828;
+  color: white;
+  align-items: center;
+  padding: 20px;
+  width: 100%;
+}
+.c-footer .c-footer__root {
+  width: 100%;
+  max-width: 1200px;
+}
+.c-footer .c-footer__root .c-footer__contain .c-footer__logo {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.c-footer .c-footer__root .c-footer__contain .c-footer__logo img {
+  width: 130px;
+  margin: auto;
+}
+.c-footer .c-footer__root .c-footer__contain .c-footer__logo span {
+  font-family: "bebas", sans-serif;
+  font-size: 35px;
+}
+.c-footer .c-footer__root .c-footer__contain .c-footer__socialMedia {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  padding: 0.8rem 0;
+  border-bottom: 2px solid #FFD600;
+}
+.c-footer .c-footer__root .c-footer__contain .c-footer__socialMedia a {
+  text-decoration: none;
+  background-color: #151515;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.c-footer .c-footer__root .c-footer__copyrights {
+  display: flex;
+  flex-direction: column;
+  font-family: "inter-light", sans-serif;
+  font-size: 15px;
+  text-align: center;
+  width: 100%;
+}
+.c-footer .c-footer__root .c-footer__copyrights .c-localization {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0;
+  gap: 5px;
+}
+.c-footer .c-footer__root .c-footer__copyrights .c-localization img {
+  width: 25px;
+}
+.c-footer .c-footer__root .c-footer__copyrights .c-localization span {
+  font-family: "inter-light", sans-serif;
+  font-size: 15px;
+}
+
 @media (min-width: 768px) {
   .c-header .c-nav .c-nav__div {
     height: 80px;
@@ -364,6 +430,11 @@ body {
     display: grid;
     grid-template-columns: 280px 280px;
     justify-content: center;
+  }
+  .c-footer .c-footer__root .c-footer__copyrights {
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
   }
 }
 @media (min-width: 1024px) {
