@@ -13,9 +13,7 @@ btnModal.addEventListener('click', (ev) => {
 modal.addEventListener('click', (ev) => {
     modal.style.display = 'none';
     cBody.style.overflowY = 'scroll';
-    console.log('clicou no pai');
 });
 shoppingCart.addEventListener('click', (ev) => {
     ev.stopPropagation();
-    console.log('clicou no filho');
 });

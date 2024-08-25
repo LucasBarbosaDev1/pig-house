@@ -377,36 +377,24 @@ body {
 }
 
 .c-modal {
-  position: absolute;
   z-index: 999;
   background-color: rgba(0, 0, 0, 0.3019607843);
   width: 100%;
-  height: 100vh;
+  height: 100%;
   backdrop-filter: blur(4px);
   border: none;
   display: none;
   padding: 10px;
+  overflow-y: scroll;
 }
 .c-modal .c-shoppingCart {
   background-color: #d9d9d9;
   width: 100%;
   max-width: 500px;
-  height: auto;
-  max-height: 100vh;
+  height: fit-content;
   padding: 1rem 0.5rem;
   margin: 0 auto;
-  overflow-y: scroll;
   border-radius: 5px;
-}
-.c-modal .c-shoppingCart::-webkit-scrollbar {
-  width: 5px;
-}
-.c-modal .c-shoppingCart::-webkit-scrollbar-track {
-  background-color: #afafaf;
-}
-.c-modal .c-shoppingCart::-webkit-scrollbar-thumb {
-  background-color: #969696;
-  border-radius: 50px;
 }
 .c-modal .c-shoppingCart .title-cart {
   font-size: 20px;
