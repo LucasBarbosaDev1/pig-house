@@ -10,7 +10,7 @@
   <title>Pig House</title>
 </head>
 <body>
-  <header class="c-header">
+  <header class="c-header" id="home">
     <nav class="c-nav">
       <div class="c-nav__div">
         <div class="c-nav__logo">
@@ -19,7 +19,7 @@
         <button class="c-nav__menu">
           <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAOklEQVR4nO3WwQ0AIBACQXqydAtcm/AiMTsJf8KLRNIlwG5JqspI0jRgtSQUSdUykjTt9e/FQy797gBSKG8CHawUIgAAAABJRU5ErkJggg==">
         </button>
-        <a href="" class="c-nav__links">HOME</a>
+        <a href="#home" class="c-nav__links" id="link_home">HOME</a>
         <a href="" class="c-nav__links">QUEM SOMOS</a>
         <a href="" class="c-nav__links">CATÁLOGO</a>
         <div class="c-nav__shoppingCart">
@@ -39,8 +39,9 @@
       <img src="src/assets/seta-arrow-gif.gif" class="down-arrow">
     </div>
   </header>
+
   <main class="c-main">
-    <section class="c-aboutUs">
+    <section class="c-aboutUs" id="aboutUs">
       <div class="c-aboutUs__root">
         <div class="c-aboutUs__titles">
           <span>About Us</span>
@@ -50,7 +51,8 @@
         <p class="c-aboutUs__paragraphy">Vai fazer aquele churrasco com os familiares e amigos? Nossos produtos são sua resposta, pois temos vários cortes bovinos e suínos, fora nosso carro chefe as linguiças artesanais.</p>
       </div>
     </section>
-    <section class="c-catalog">
+
+    <section class="c-catalog" id="catalog">
       <div class="c-catalog__root">
         <div class="c-catalog__titles">
           <span>Catalog</span>
@@ -125,6 +127,7 @@
       </div>
     </section>
   </main>
+
   <footer class="c-footer">
     <div class="c-footer__root">
       <div class="c-footer__contain">
@@ -152,7 +155,7 @@
     </div>
   </footer>
 
-  <div class="c-modal">
+  <dialog class="c-modal">
 
     <div class="c-shoppingCart">
       <h5 class="title-cart">CARRINHO</h5>
@@ -269,7 +272,7 @@
       <h5 class="title-cart">DADOS</h5>
 
       <div class="data-client">
-        <form>
+        <form class="c-form">
           <div class="camp-form camp1">
             <label for="name">Nome:</label>
             <input type="text" name="name" id="name">
@@ -308,6 +311,6 @@
         </form>
       </div>
     </div>
-  </div>
+  </dialog>
 </body>
 </html>
