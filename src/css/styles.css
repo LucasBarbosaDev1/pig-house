@@ -41,6 +41,20 @@ body {
   height: 100%;
 }
 
+.active {
+  color: #FFD600 !important;
+  font-weight: bold;
+}
+.active::after {
+  content: " ";
+  width: 100% !important;
+  height: 2px;
+  background-color: #FFD600;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
 .c-header {
   display: flex;
   flex-direction: column;
@@ -83,10 +97,23 @@ body {
   cursor: pointer;
 }
 .c-header .c-nav .c-nav__div .c-nav__links {
+  position: relative;
   display: none;
   color: white;
   text-decoration: none;
   font-family: "inter-regular", sans-serif;
+  text-shadow: 0px 0px 10px black;
+  padding: 5px;
+}
+.c-header .c-nav .c-nav__div .c-nav__links::after {
+  content: " ";
+  width: 0%;
+  height: 2px;
+  background-color: #FFD600;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: 0.5s ease-in-out;
   text-shadow: 0px 0px 10px black;
 }
 .c-header .c-nav .c-nav__div .c-nav__shoppingCart {
@@ -149,7 +176,7 @@ body {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 2rem 10px;
+  padding: 4rem 10px;
   text-align: center;
 }
 .c-main .c-aboutUs .c-aboutUs__root {
@@ -181,7 +208,7 @@ body {
   width: 100%;
   height: 100%;
   background-color: #151515;
-  padding: 2rem 10px;
+  padding: 4rem 10px;
   text-align: center;
   color: white;
   display: flex;
