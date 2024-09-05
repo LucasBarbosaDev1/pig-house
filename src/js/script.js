@@ -50,7 +50,6 @@ btnModalNav.addEventListener('click', (ev) => {
     modalNav.style.top = `${document.documentElement.scrollTop}px`;
     modalNav.style.display = 'flex';
     cBody.style.overflowY = 'hidden';
-    modalNavChield.classList.add('openSideBar');
 });
 const closeModal = () => {
     modalNav.style.display = 'none';
@@ -58,17 +57,55 @@ const closeModal = () => {
 };
 btnCloseNav.addEventListener('click', () => {
     closeModal();
-    modalNavChield.classList.remove('openSideBar');
 });
 modalNav.addEventListener('click', (ev) => {
     if (ev.target === modalNav) {
         closeModal();
-        modalNavChield.classList.remove('openSideBar');
     }
 });
 navLinksMobile.forEach(item => {
     item.addEventListener('click', () => {
         closeModal();
-        modalNavChield.classList.remove('openSideBar');
     });
 });
+// renderização dos produtos
+const catalogCards = document.querySelector('.c-catalog__cards');
+async function dataBase() {
+    try {
+        const response = await fetch('src/dataBase/dataBase.json');
+        const data = await response.json();
+        for (const product of data) {
+            catalogCards.innerHTML += `
+        <div class="c-product">
+          <div>
+            <div class="c-product__img">
+              <img src="${product.image}" alt="">
+            </div>
+            <div class="c-product__title">
+              <h4>${product.product}</h4>
+              <span>R$ ${product.price} / kg</span>
+            </div>
+          </div>
+
+          <p class="c-product__description">${product.description}</p>
+
+          <div class="c-product__buttons">
+            <input type="button" value="Adicionar ao Carrinho" class="btn-add">
+            <div class="btn-qnt">
+              <input type="button" value="-">
+              <input type="number" name="" id="" value="1">
+              <input type="button" value="+">
+            </div>
+          </div>
+        </div>
+      `;
+        }
+        ;
+    }
+    catch (error) {
+        console.error(`Erro: ${error}`);
+    }
+    ;
+}
+;
+dataBase();

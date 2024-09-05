@@ -1,0 +1,30 @@
+[
+  {
+    "image": "src/assets/products/linguica-apimentada.jpg",
+    "product": "LINGUIÇA APIMENTADA",
+    "price": 26.00,
+    "description": "Produzida 100% com cortes nobres de suíno, enrolada, temperada com especiarias naturais, levemente adicionada com pimenta vermelha.",
+    "type": "linguica"
+  },
+  {
+    "image": "src/assets/products/linguica-apimentada.jpg",
+    "product": "LINGUIÇA COMUM",
+    "price": 30.00,
+    "description": "Produzida 100% com cortes nobres de suíno, enrolada, temperada com especiarias naturais",
+    "type": "linguica"
+  },
+  {
+    "image": "src/assets/products/linguica-apimentada.jpg",
+    "product": "LINGUIÇA COMUM",
+    "price": 30.00,
+    "description": "Produzida 100% com cortes nobres de suíno, enrolada, temperada com especiarias naturais",
+    "type": "linguica"
+  },
+  {
+    "image": "src/assets/products/linguica-apimentada.jpg",
+    "product": "LINGUIÇA COMUM",
+    "price": 30.00,
+    "description": "Produzida 100% com cortes nobres de suíno, enrolada, temperada com especiarias naturais",
+    "type": "linguica"
+  }
+]
