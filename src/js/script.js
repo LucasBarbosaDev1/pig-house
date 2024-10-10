@@ -68,44 +68,63 @@ navLinksMobile.forEach(item => {
         closeModal();
     });
 });
-// renderização dos produtos
-const catalogCards = document.querySelector('.c-catalog__cards');
+// localStorage do carrinho
+if (!localStorage.getItem('dataBasePH')) {
+    localStorage.setItem('dataBasePH', '[]');
+}
+const arrLocalStorage = JSON.parse(localStorage.getItem('dataBasePH'));
+;
+// requisição get da base de dados
 async function dataBase() {
-    try {
-        const response = await fetch('src/dataBase/dataBase.json');
-        const data = await response.json();
-        for (const product of data) {
-            catalogCards.innerHTML += `
-        <div class="c-product">
-          <div>
-            <div class="c-product__img">
-              <img src="${product.image}" alt="">
-            </div>
-            <div class="c-product__title">
-              <h4>${product.product}</h4>
-              <span>R$ ${product.price} / kg</span>
-            </div>
-          </div>
+    const response = await fetch('src/dataBase/dataBase.json');
+    const data = await response.json();
+    return data;
+}
+// renderização dos produtos no catálogo
+const catalogCards = document.querySelector('.c-catalog__cards');
+dataBase()
+    .then(dados => {
+    const productCardHTML = dados.map(el => `
+    <div class="c-product">
 
-          <p class="c-product__description">${product.description}</p>
-
-          <div class="c-product__buttons">
-            <input type="button" value="Adicionar ao Carrinho" class="btn-add">
-            <div class="btn-qnt">
-              <input type="button" value="-">
-              <input type="number" name="" id="" value="1">
-              <input type="button" value="+">
-            </div>
-          </div>
+      <div>             
+        <div class="c-product__img">
+          <img src="${el.image}" alt="">
         </div>
-      `;
+      
+        <div class="c-product__title">
+          <h4>${el.product}</h4>
+          <span>R$ ${el.price} / kg</span>
+        </div>
+      </div>
+        
+      <p class="c-product__description">${el.description}</p>
+        
+      <div class="c-product__buttons">
+        <input type="button" value="Adicionar ao Carrinho" class="btn-add" id="${el.id}">      
+      </div>           
+    </div>
+    `).join('');
+    // adiciona os produtos no LS
+    catalogCards.innerHTML = productCardHTML;
+    catalogCards.addEventListener('click', (ev) => {
+        const clickedElement = ev.target;
+        const elementId = clickedElement.id;
+        const productFilter = dados.filter(product => product.id === elementId);
+        if (clickedElement.className === "btn-add") {
+            let cont = 0;
+            for (let i = 0; i < arrLocalStorage.length; i++) {
+                if (arrLocalStorage[i].id === productFilter[0].id) {
+                    cont++;
+                }
+            }
+            ;
+            if (cont < 1) {
+                arrLocalStorage.push(productFilter[0]);
+                localStorage.setItem('dataBasePH', JSON.stringify(arrLocalStorage));
+            }
+            ;
         }
         ;
-    }
-    catch (error) {
-        console.error(`Erro: ${error}`);
-    }
-    ;
-}
-;
-dataBase();
+    });
+});
