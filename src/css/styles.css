@@ -130,6 +130,7 @@ body {
   align-items: center;
   justify-content: center;
   font-family: "inter-regular", sans-serif;
+  cursor: pointer;
 }
 .c-header .c-sideBarNav {
   width: 100%;

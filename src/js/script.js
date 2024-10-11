@@ -130,6 +130,7 @@ dataBase()
             ;
             renderProductsCart();
             totalPrice();
+            cartNotificationFunction();
         }
         ;
     });
@@ -182,39 +183,46 @@ renderProductsCart();
 productsCart.addEventListener('click', (ev) => {
     const clickedElement = ev.target;
     const elementId = clickedElement.id;
+    const productFilter = arrLocalStorage.filter((product) => product.id === clickedElement.dataset.id);
     // funcao para remover o produto do carrinho
     const removeProductFunction = () => {
         const productFilter = arrLocalStorage.filter((product) => product.id !== clickedElement.dataset.id);
         arrLocalStorage = productFilter;
         localStorage.setItem('dataBasePH', JSON.stringify(arrLocalStorage));
         renderProductsCart();
+        cartNotificationFunction();
     };
     // adicionar +1 a qunatidade do produto
     if (elementId === 'add') {
-        const productFilter = arrLocalStorage.filter((product) => product.id === clickedElement.dataset.id);
         productFilter[0].quantity++;
         localStorage.setItem('dataBasePH', JSON.stringify(arrLocalStorage));
         renderProductsCart();
         totalPrice();
+        cartNotificationFunction();
     }
     ;
     // remover 1 da quantidade do produto
     if (elementId === 'remove') {
-        const productFilter = arrLocalStorage.filter((product) => product.id === clickedElement.dataset.id);
         productFilter[0].quantity--;
         localStorage.setItem('dataBasePH', JSON.stringify(arrLocalStorage));
         if (productFilter[0].quantity === 0) {
+            productFilter[0].quantity = 1;
+            localStorage.setItem('dataBasePH', JSON.stringify(arrLocalStorage));
             removeProductFunction();
         }
         ;
         renderProductsCart();
         totalPrice();
+        cartNotificationFunction();
     }
     ;
     // botão de romover o produto do carrinho
     if (elementId === 'removeProduct') {
+        productFilter[0].quantity = 1;
+        localStorage.setItem('dataBasePH', JSON.stringify(arrLocalStorage));
         removeProductFunction();
         totalPrice();
+        cartNotificationFunction();
     }
     ;
 });
@@ -230,3 +238,15 @@ function totalPrice() {
 }
 ;
 totalPrice();
+// notificação do carrinho
+const cartNotification = document.querySelector('.c-nav__notificationCart');
+let totalProducts = 0;
+function cartNotificationFunction() {
+    totalProducts = 0;
+    arrLocalStorage.forEach((el) => {
+        totalProducts += el.quantity;
+    });
+    cartNotification.innerText = totalProducts.toString();
+}
+;
+cartNotificationFunction();
