@@ -43,7 +43,7 @@ modal.addEventListener('click', (ev) => {
     modal.style.display = 'none';
     cBody.style.overflowY = 'scroll';
 
-  }
+  };
 });
 
 // modal menu
@@ -54,7 +54,7 @@ const btnCloseNav = document.querySelector('.btn-closeNav') as HTMLElement;
 const navLinksMobile = [...document.querySelectorAll('.c-nav__links--mobile')] as HTMLElement[];
 
 btnModalNav.addEventListener('click', (ev) => {
-  modalNav.style.top = `${document.documentElement.scrollTop}px`
+  modalNav.style.top = `${document.documentElement.scrollTop}px`;
   modalNav.style.display = 'flex';
   cBody.style.overflowY = 'hidden';
 });
@@ -77,15 +77,8 @@ modalNav.addEventListener('click', (ev) => {
 navLinksMobile.forEach(item => {
   item.addEventListener('click', () => {
     closeModal();
-  })
-})
-
-// localStorage do carrinho
-if (!localStorage.getItem('dataBasePH')) {
-  localStorage.setItem('dataBasePH', '[]');
-}
-
-const arrLocalStorage = JSON.parse(localStorage.getItem('dataBasePH') as string);
+  });
+});
 
 // interface da base de dados
 interface DataBaseItem {
@@ -98,13 +91,21 @@ interface DataBaseItem {
   type: string;
 };
 
-// requisição get da base de dados
+// localStorage do carrinho
+if (!localStorage.getItem('dataBasePH')) {
+  localStorage.setItem('dataBasePH', '[]');
+};
+
+let arrLocalStorage = JSON.parse(localStorage.getItem('dataBasePH') as string);
+
+
+// requisição get da base de dados dos produtos
 async function dataBase(): Promise<DataBaseItem[]> {
   const response = await fetch('src/dataBase/dataBase.json');
   const data: DataBaseItem[] = await response.json();
 
   return data;
-}
+};
 
 // renderização dos produtos no catálogo
 const catalogCards = document.querySelector('.c-catalog__cards') as HTMLElement;
@@ -133,7 +134,7 @@ dataBase()
     </div>
     `).join('');
     
-    // adiciona os produtos no LS
+    // adiciona os produtos no localStorage
     catalogCards.innerHTML = productCardHTML;
     
     catalogCards.addEventListener('click', (ev) => {
@@ -149,7 +150,7 @@ dataBase()
         for (let i = 0; i < arrLocalStorage.length; i++) {
           if (arrLocalStorage[i].id === productFilter[0].id) {
             cont++;
-          } 
+          };
         };
         
         if (cont < 1) {
@@ -158,8 +159,113 @@ dataBase()
           localStorage.setItem('dataBasePH', JSON.stringify(arrLocalStorage)); 
   
         }; 
+
+        renderProductsCart();
       };
       
     });
     
+  })
+  .catch(error => {
+    console.error(error);
   });
+
+// renderizacao dos produtos no carrinho
+const productsCart = document.querySelector('.products-cart') as HTMLElement;
+
+function renderProductsCart() {
+
+  if (arrLocalStorage.length === 0) {
+    productsCart.innerHTML = `<span>Carrinho Vazio</span>`;
+
+  } else {
+    const productCardShopping: string = arrLocalStorage.map((el: { id:string; image: string; product: string; quantity: number; price: number; }) => {
+      return (
+        `
+        <div class="item-cart">
+          <i class="fa-solid fa-x" id="removeProduct"  data-id="${el.id}"></i>
+      
+          <img src="${el.image}" alt="">
+      
+          <div class="descripitionItem-cart">
+            <div class="infos-item">
+              <span class="title-item">${el.product}</span>
+              <span class="qnt-item">QUANTIDADE: ${el.quantity}</span>
+            </div>
+      
+            <div class="value-item">
+              <span class="price-item">R$ ${(el.price).toFixed(2)}</span>
+      
+              <div class="btnQnt-cart">
+                <input type="button" value="+" id="add" data-id="${el.id}">
+                <div id="qnt">${el.quantity}</div>
+                <input type="button" value="-" id="remove" data-id="${el.id}">
+              </div>
+      
+            </div>
+      
+          </div>
+        </div>
+      
+      `
+      );
+      
+    }).join('');
+    
+    productsCart.innerHTML = productCardShopping;
+    
+  };
+  
+};
+
+renderProductsCart();
+
+productsCart.addEventListener('click', (ev) => {
+  const clickedElement = ev.target as HTMLElement;
+  const elementId: string = clickedElement.id;
+
+  // funcao para remover o produto do carrinho
+  const removeProductFunction = () => {
+    const productFilter = arrLocalStorage.filter((product: { id: string; }) => product.id !== clickedElement.dataset.id);
+
+    arrLocalStorage = productFilter;
+
+    localStorage.setItem('dataBasePH', JSON.stringify(arrLocalStorage)); 
+    
+    renderProductsCart();
+  };
+
+  // adicionar +1 a qunatidade do produto
+  if (elementId === 'add') {
+    const productFilter = arrLocalStorage.filter((product: { id: string; }) => product.id === clickedElement.dataset.id);
+    
+    productFilter[0].quantity++;
+
+    localStorage.setItem('dataBasePH', JSON.stringify(arrLocalStorage));
+
+    renderProductsCart();
+    
+  };
+
+  // remover 1 da quantidade do produto
+  if (elementId === 'remove') {
+    const productFilter = arrLocalStorage.filter((product: { id: string; }) => product.id === clickedElement.dataset.id);
+    
+    productFilter[0].quantity--;
+
+    localStorage.setItem('dataBasePH', JSON.stringify(arrLocalStorage));
+
+    
+    if (productFilter[0].quantity === 0) {
+      removeProductFunction();
+    };
+    
+    renderProductsCart();
+  };
+
+  // botão de romover o produto do carrinho
+  if (elementId === 'removeProduct') {
+    removeProductFunction();
+  };
+  
+});

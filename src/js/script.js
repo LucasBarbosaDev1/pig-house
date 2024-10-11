@@ -39,6 +39,7 @@ modal.addEventListener('click', (ev) => {
         modal.style.display = 'none';
         cBody.style.overflowY = 'scroll';
     }
+    ;
 });
 // modal menu
 const btnModalNav = document.querySelector('.c-nav__menu');
@@ -68,18 +69,20 @@ navLinksMobile.forEach(item => {
         closeModal();
     });
 });
+;
 // localStorage do carrinho
 if (!localStorage.getItem('dataBasePH')) {
     localStorage.setItem('dataBasePH', '[]');
 }
-const arrLocalStorage = JSON.parse(localStorage.getItem('dataBasePH'));
 ;
-// requisição get da base de dados
+let arrLocalStorage = JSON.parse(localStorage.getItem('dataBasePH'));
+// requisição get da base de dados dos produtos
 async function dataBase() {
     const response = await fetch('src/dataBase/dataBase.json');
     const data = await response.json();
     return data;
 }
+;
 // renderização dos produtos no catálogo
 const catalogCards = document.querySelector('.c-catalog__cards');
 dataBase()
@@ -105,7 +108,7 @@ dataBase()
       </div>           
     </div>
     `).join('');
-    // adiciona os produtos no LS
+    // adiciona os produtos no localStorage
     catalogCards.innerHTML = productCardHTML;
     catalogCards.addEventListener('click', (ev) => {
         const clickedElement = ev.target;
@@ -117,6 +120,7 @@ dataBase()
                 if (arrLocalStorage[i].id === productFilter[0].id) {
                     cont++;
                 }
+                ;
             }
             ;
             if (cont < 1) {
@@ -124,7 +128,89 @@ dataBase()
                 localStorage.setItem('dataBasePH', JSON.stringify(arrLocalStorage));
             }
             ;
+            renderProductsCart();
         }
         ;
     });
+})
+    .catch(error => {
+    console.error(error);
+});
+// renderizacao dos produtos no carrinho
+const productsCart = document.querySelector('.products-cart');
+function renderProductsCart() {
+    if (arrLocalStorage.length === 0) {
+        productsCart.innerHTML = `<span>Carrinho Vazio</span>`;
+    }
+    else {
+        const productCardShopping = arrLocalStorage.map((el) => {
+            return (`
+        <div class="item-cart">
+          <i class="fa-solid fa-x" id="removeProduct"  data-id="${el.id}"></i>
+      
+          <img src="${el.image}" alt="">
+      
+          <div class="descripitionItem-cart">
+            <div class="infos-item">
+              <span class="title-item">${el.product}</span>
+              <span class="qnt-item">QUANTIDADE: ${el.quantity}</span>
+            </div>
+      
+            <div class="value-item">
+              <span class="price-item">R$ ${(el.price).toFixed(2)}</span>
+      
+              <div class="btnQnt-cart">
+                <input type="button" value="+" id="add" data-id="${el.id}">
+                <div id="qnt">${el.quantity}</div>
+                <input type="button" value="-" id="remove" data-id="${el.id}">
+              </div>
+      
+            </div>
+      
+          </div>
+        </div>
+      
+      `);
+        }).join('');
+        productsCart.innerHTML = productCardShopping;
+    }
+    ;
+}
+;
+renderProductsCart();
+productsCart.addEventListener('click', (ev) => {
+    const clickedElement = ev.target;
+    const elementId = clickedElement.id;
+    // funcao para remover o produto do carrinho
+    const removeProductFunction = () => {
+        const productFilter = arrLocalStorage.filter((product) => product.id !== clickedElement.dataset.id);
+        arrLocalStorage = productFilter;
+        localStorage.setItem('dataBasePH', JSON.stringify(arrLocalStorage));
+        renderProductsCart();
+    };
+    // adicionar +1 a qunatidade do produto
+    if (elementId === 'add') {
+        const productFilter = arrLocalStorage.filter((product) => product.id === clickedElement.dataset.id);
+        productFilter[0].quantity++;
+        localStorage.setItem('dataBasePH', JSON.stringify(arrLocalStorage));
+        renderProductsCart();
+    }
+    ;
+    // remover 1 da quantidade do produto
+    if (elementId === 'remove') {
+        const productFilter = arrLocalStorage.filter((product) => product.id === clickedElement.dataset.id);
+        productFilter[0].quantity--;
+        localStorage.setItem('dataBasePH', JSON.stringify(arrLocalStorage));
+        if (productFilter[0].quantity === 0) {
+            removeProductFunction();
+        }
+        ;
+        renderProductsCart();
+    }
+    ;
+    // botão de romover o produto do carrinho
+    if (elementId === 'removeProduct') {
+        removeProductFunction();
+    }
+    ;
 });

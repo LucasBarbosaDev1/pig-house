@@ -461,14 +461,17 @@ body {
   position: relative;
   border-radius: 5px;
 }
-.c-modal .c-shoppingCart .products-cart .item-cart button {
-  border: none;
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
+.c-modal .c-shoppingCart .products-cart .item-cart i {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   top: 5px;
   right: 5px;
+  background-color: #fff;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
   cursor: pointer;
 }
 .c-modal .c-shoppingCart .products-cart .item-cart img {
