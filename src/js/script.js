@@ -129,6 +129,7 @@ dataBase()
             }
             ;
             renderProductsCart();
+            totalPrice();
         }
         ;
     });
@@ -194,6 +195,7 @@ productsCart.addEventListener('click', (ev) => {
         productFilter[0].quantity++;
         localStorage.setItem('dataBasePH', JSON.stringify(arrLocalStorage));
         renderProductsCart();
+        totalPrice();
     }
     ;
     // remover 1 da quantidade do produto
@@ -206,11 +208,25 @@ productsCart.addEventListener('click', (ev) => {
         }
         ;
         renderProductsCart();
+        totalPrice();
     }
     ;
     // botão de romover o produto do carrinho
     if (elementId === 'removeProduct') {
         removeProductFunction();
+        totalPrice();
     }
     ;
 });
+// atualiza o valor total do pedido
+const totalPriceElement = document.querySelector('.price-total');
+let totalSum = 0;
+function totalPrice() {
+    totalSum = 0;
+    arrLocalStorage.forEach((el) => {
+        totalSum += el.quantity * el.price;
+    });
+    totalPriceElement.innerText = totalSum.toFixed(2).toString();
+}
+;
+totalPrice();
