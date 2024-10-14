@@ -85,31 +85,56 @@ async function dataBase() {
 ;
 // renderização dos produtos no catálogo
 const catalogCards = document.querySelector('.c-catalog__cards');
+const catalogMenu = document.querySelector('.c-catalog__menu');
+const mLinguica = document.querySelector('.m-linguica');
+const mCarne = document.querySelector('.m-carne');
 dataBase()
     .then(dados => {
-    const productCardHTML = dados.map(el => `
-    <div class="c-product">
-
-      <div>             
-        <div class="c-product__img">
-          <img src="${el.image}" alt="">
+    catalogMenu.addEventListener('click', (ev) => {
+        const clickedElement = ev.target;
+        const elementClass = clickedElement.className;
+        function categoryProducts(type) {
+            const productFilter = dados.filter(product => product.type === type);
+            const productCardHTML = productFilter.map(el => `
+        <div class="c-product">
+    
+          <div>             
+            <div class="c-product__img">
+              <img src="${el.image}" alt="">
+            </div>
+          
+            <div class="c-product__title">
+              <h4>${el.product}</h4>
+              <span>R$ ${el.price} / kg</span>
+            </div>
+          </div>
+            
+          <p class="c-product__description">${el.description}</p>
+            
+          <div class="c-product__buttons">
+            <input type="button" value="Adicionar ao Carrinho" class="btn-add" id="${el.id}">      
+          </div>           
         </div>
-      
-        <div class="c-product__title">
-          <h4>${el.product}</h4>
-          <span>R$ ${el.price} / kg</span>
-        </div>
-      </div>
-        
-      <p class="c-product__description">${el.description}</p>
-        
-      <div class="c-product__buttons">
-        <input type="button" value="Adicionar ao Carrinho" class="btn-add" id="${el.id}">      
-      </div>           
-    </div>
-    `).join('');
+        `).join('');
+            catalogCards.innerHTML = productCardHTML;
+        }
+        ;
+        if (elementClass === 'm-linguica') {
+            mLinguica.style.color = '#FFD600';
+            mCarne.style.color = '#FFF';
+            categoryProducts('linguica');
+        }
+        ;
+        if (elementClass === 'm-carne') {
+            mCarne.style.color = '#FFD600';
+            mLinguica.style.color = '#FFF';
+            categoryProducts('carne');
+        }
+    });
+    window.onload = function () {
+        mLinguica.click();
+    };
     // adiciona os produtos no localStorage
-    catalogCards.innerHTML = productCardHTML;
     catalogCards.addEventListener('click', (ev) => {
         const clickedElement = ev.target;
         const elementId = clickedElement.id;

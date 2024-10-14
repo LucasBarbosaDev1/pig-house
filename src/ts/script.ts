@@ -109,68 +109,97 @@ async function dataBase(): Promise<DataBaseItem[]> {
 
 // renderização dos produtos no catálogo
 const catalogCards = document.querySelector('.c-catalog__cards') as HTMLElement;
+const catalogMenu = document.querySelector('.c-catalog__menu') as HTMLElement;
+const mLinguica = document.querySelector('.m-linguica') as HTMLElement;
+const mCarne = document.querySelector('.m-carne') as HTMLElement;
 
 dataBase()
 .then(dados => {
-  const productCardHTML = dados.map(el => `
-    <div class="c-product">
+  catalogMenu.addEventListener('click', (ev) => {
+    const clickedElement = ev.target as HTMLElement;
+    const elementClass: string = clickedElement.className;
 
-      <div>             
-        <div class="c-product__img">
-          <img src="${el.image}" alt="">
+    function categoryProducts(type:string) {
+      const productFilter: DataBaseItem[] = dados.filter(product => product.type === type);
+
+      const productCardHTML = productFilter.map(el => `
+        <div class="c-product">
+    
+          <div>             
+            <div class="c-product__img">
+              <img src="${el.image}" alt="">
+            </div>
+          
+            <div class="c-product__title">
+              <h4>${el.product}</h4>
+              <span>R$ ${el.price} / kg</span>
+            </div>
+          </div>
+            
+          <p class="c-product__description">${el.description}</p>
+            
+          <div class="c-product__buttons">
+            <input type="button" value="Adicionar ao Carrinho" class="btn-add" id="${el.id}">      
+          </div>           
         </div>
+        `).join('');
+
+        catalogCards.innerHTML = productCardHTML;
+    };
+
+    if (elementClass === 'm-linguica') {
+      mLinguica.style.color = '#FFD600'
+      mCarne.style.color = '#FFF'
+      categoryProducts('linguica');
+    };
+
+    if (elementClass === 'm-carne') {
+      mCarne.style.color = '#FFD600'
+      mLinguica.style.color = '#FFF'
+      categoryProducts('carne');
+    }
+  });
+
+  window.onload = function() {
+    mLinguica.click();
+  };
+  // adiciona os produtos no localStorage
+    
+  catalogCards.addEventListener('click', (ev) => {
+    const clickedElement = ev.target as HTMLElement;
+    const elementId: string = clickedElement.id;
+
+    const productFilter = dados.filter(product => product.id === elementId);
+
+    if (clickedElement.className === "btn-add") {
       
-        <div class="c-product__title">
-          <h4>${el.product}</h4>
-          <span>R$ ${el.price} / kg</span>
-        </div>
-      </div>
-        
-      <p class="c-product__description">${el.description}</p>
-        
-      <div class="c-product__buttons">
-        <input type="button" value="Adicionar ao Carrinho" class="btn-add" id="${el.id}">      
-      </div>           
-    </div>
-    `).join('');
-    
-    // adiciona os produtos no localStorage
-    catalogCards.innerHTML = productCardHTML;
-    
-    catalogCards.addEventListener('click', (ev) => {
-      const clickedElement = ev.target as HTMLElement;
-      const elementId: string = clickedElement.id;
+      let cont: number = 0;
 
-      const productFilter = dados.filter(product => product.id === elementId);
-
-      if (clickedElement.className === "btn-add") {
-        
-        let cont: number = 0;
-  
-        for (let i = 0; i < arrLocalStorage.length; i++) {
-          if (arrLocalStorage[i].id === productFilter[0].id) {
-            cont++;
-          };
+      for (let i = 0; i < arrLocalStorage.length; i++) {
+        if (arrLocalStorage[i].id === productFilter[0].id) {
+          cont++;
         };
-        
-        if (cont < 1) {
-          arrLocalStorage.push(productFilter[0]);
-    
-          localStorage.setItem('dataBasePH', JSON.stringify(arrLocalStorage)); 
-  
-        }; 
-
-        renderProductsCart();
-        totalPrice();
-        cartNotificationFunction();
       };
       
-    });
+      if (cont < 1) {
+        arrLocalStorage.push(productFilter[0]);
+  
+        localStorage.setItem('dataBasePH', JSON.stringify(arrLocalStorage)); 
+
+      }; 
+
+      renderProductsCart();
+      totalPrice();
+      cartNotificationFunction();
+    };
+    
+  });
     
   })
   .catch(error => {
     console.error(error);
   });
+
 
 // renderizacao dos produtos no carrinho
 const productsCart = document.querySelector('.products-cart') as HTMLElement;
