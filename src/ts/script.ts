@@ -31,18 +31,23 @@ const modal = document.querySelector('.c-modal') as HTMLElement;
 const shoppingCart = document.querySelector('.c-shoppingCart') as HTMLElement;
 const cBody = document.body;
 
+function closeShoppingCart(): void {
+  modal.style.display = 'none';
+  cBody.style.overflowY = 'scroll';
+
+};
+
 btnModal.addEventListener('click', (ev) => {
   ev.preventDefault();
   modal.style.display = 'flex';
   modal.style.top = `${document.documentElement.scrollTop}px`;
   cBody.style.overflowY = 'hidden';
+  
 });
 
 modal.addEventListener('click', (ev) => { 
   if (ev.target === modal){
-    modal.style.display = 'none';
-    cBody.style.overflowY = 'scroll';
-
+    closeShoppingCart();
   };
 });
 
@@ -132,7 +137,7 @@ dataBase()
           
             <div class="c-product__title">
               <h4>${el.product}</h4>
-              <span>R$ ${el.price} / kg</span>
+              <span>R$ ${(el.price).toFixed(2).replace('.', ',')} / kg</span>
             </div>
           </div>
             
@@ -160,11 +165,9 @@ dataBase()
     }
   });
 
-  window.onload = function() {
-    mLinguica.click();
-  };
-  // adiciona os produtos no localStorage
-    
+  mLinguica.click();
+
+    // adiciona os produtos no localStorage
   catalogCards.addEventListener('click', (ev) => {
     const clickedElement = ev.target as HTMLElement;
     const elementId: string = clickedElement.id;
@@ -211,6 +214,8 @@ function renderProductsCart() {
 
   } else {
     const productCardShopping: string = arrLocalStorage.map((el: { id:string; image: string; product: string; quantity: number; price: number; }) => {
+      const price: number = el.price;
+
       return (
         `
         <div class="item-cart">
@@ -221,11 +226,11 @@ function renderProductsCart() {
           <div class="descripitionItem-cart">
             <div class="infos-item">
               <span class="title-item">${el.product}</span>
-              <span class="qnt-item">QUANTIDADE: ${el.quantity}</span>
+              <span class="qnt-item">QUANTIDADE: ${el.quantity}kg</span>
             </div>
       
             <div class="value-item">
-              <span class="price-item">R$ ${(el.price).toFixed(2)}</span>
+              <span class="price-item">R$ ${price.toFixed(2).replace('.', ',')}</span>
       
               <div class="btnQnt-cart">
                 <input type="button" value="+" id="add" data-id="${el.id}">
@@ -319,12 +324,13 @@ let totalSum: number = 0;
 
 function totalPrice() {
   totalSum = 0;
+  
   arrLocalStorage.forEach((el: any) => {
     totalSum += el.quantity * el.price;
 
   });
   
-  totalPriceElement.innerText = totalSum.toFixed(2).toString();
+  totalPriceElement.innerText = totalSum.toFixed(2).replace('.', ',').toString();
 };
 
 totalPrice();
@@ -345,3 +351,37 @@ function cartNotificationFunction() {
 };
 
 cartNotificationFunction();
+
+// botoes do carrinho
+const Cform = document.querySelector('.c-form') as HTMLFormElement;
+const btnCloseModal = document.querySelector('.btn-close') as HTMLElement;
+
+// função de fechar o modal
+btnCloseModal.addEventListener('click', (ev) => { 
+  ev.preventDefault();
+  closeShoppingCart();
+  
+});
+
+// gera o pedido para o whatsApp
+let request: string = '';
+
+Cform.addEventListener('submit', (ev) => {
+  ev.preventDefault();
+
+  for (let i = 0; i < arrLocalStorage.length; i++) {
+    
+    const quantity: number = arrLocalStorage[i].quantity;
+    const product: string = arrLocalStorage[i].product;
+    const totalPrice: string = (arrLocalStorage[i].quantity * arrLocalStorage[i].price).toFixed(2).replace('.', ',').toString();
+
+    request += `${quantity}kg - ${product} - R$ ${totalPrice}%0A`;
+    
+  };
+  
+  console.log(request);
+  
+  window.open(`https://api.whatsapp.com/send?phone=5585987692718&text=*Bem%20Vindo(a)%20%C3%A0%20Pig%20House*%F0%9F%90%B7%0A%0A*Pedido*%0A${request}%0A%0ATotal%20-%20R%24%20${totalSum.toFixed(2).replace('.', ',')}%0A%0A*Dados%20para%20Entrega*%0ANome%3A%20${Cform.nameInput.value}%0AEndere%C3%A7o%3A%20${Cform.address.value}%2C%20${Cform.number.value}%2C%20${Cform.complement.value}%0ABairro%3A%20${Cform.district.value}%0ACEP%3A%C2%A0${Cform.cep.value}`);
+  
+  request = "";
+});

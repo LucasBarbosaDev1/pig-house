@@ -28,6 +28,11 @@ const btnModal = document.querySelector('.c-nav__shoppingCart');
 const modal = document.querySelector('.c-modal');
 const shoppingCart = document.querySelector('.c-shoppingCart');
 const cBody = document.body;
+function closeShoppingCart() {
+    modal.style.display = 'none';
+    cBody.style.overflowY = 'scroll';
+}
+;
 btnModal.addEventListener('click', (ev) => {
     ev.preventDefault();
     modal.style.display = 'flex';
@@ -36,8 +41,7 @@ btnModal.addEventListener('click', (ev) => {
 });
 modal.addEventListener('click', (ev) => {
     if (ev.target === modal) {
-        modal.style.display = 'none';
-        cBody.style.overflowY = 'scroll';
+        closeShoppingCart();
     }
     ;
 });
@@ -105,7 +109,7 @@ dataBase()
           
             <div class="c-product__title">
               <h4>${el.product}</h4>
-              <span>R$ ${el.price} / kg</span>
+              <span>R$ ${(el.price).toFixed(2).replace('.', ',')} / kg</span>
             </div>
           </div>
             
@@ -131,9 +135,7 @@ dataBase()
             categoryProducts('carne');
         }
     });
-    window.onload = function () {
-        mLinguica.click();
-    };
+    mLinguica.click();
     // adiciona os produtos no localStorage
     catalogCards.addEventListener('click', (ev) => {
         const clickedElement = ev.target;
@@ -171,6 +173,7 @@ function renderProductsCart() {
     }
     else {
         const productCardShopping = arrLocalStorage.map((el) => {
+            const price = el.price;
             return (`
         <div class="item-cart">
           <i class="fa-solid fa-x" id="removeProduct"  data-id="${el.id}"></i>
@@ -180,11 +183,11 @@ function renderProductsCart() {
           <div class="descripitionItem-cart">
             <div class="infos-item">
               <span class="title-item">${el.product}</span>
-              <span class="qnt-item">QUANTIDADE: ${el.quantity}</span>
+              <span class="qnt-item">QUANTIDADE: ${el.quantity}kg</span>
             </div>
       
             <div class="value-item">
-              <span class="price-item">R$ ${(el.price).toFixed(2)}</span>
+              <span class="price-item">R$ ${price.toFixed(2).replace('.', ',')}</span>
       
               <div class="btnQnt-cart">
                 <input type="button" value="+" id="add" data-id="${el.id}">
@@ -259,7 +262,7 @@ function totalPrice() {
     arrLocalStorage.forEach((el) => {
         totalSum += el.quantity * el.price;
     });
-    totalPriceElement.innerText = totalSum.toFixed(2).toString();
+    totalPriceElement.innerText = totalSum.toFixed(2).replace('.', ',').toString();
 }
 ;
 totalPrice();
@@ -275,3 +278,26 @@ function cartNotificationFunction() {
 }
 ;
 cartNotificationFunction();
+// botoes do carrinho
+const Cform = document.querySelector('.c-form');
+const btnCloseModal = document.querySelector('.btn-close');
+// função de fechar o modal
+btnCloseModal.addEventListener('click', (ev) => {
+    ev.preventDefault();
+    closeShoppingCart();
+});
+// gera o pedido para o whatsApp
+let request = '';
+Cform.addEventListener('submit', (ev) => {
+    ev.preventDefault();
+    for (let i = 0; i < arrLocalStorage.length; i++) {
+        const quantity = arrLocalStorage[i].quantity;
+        const product = arrLocalStorage[i].product;
+        const totalPrice = (arrLocalStorage[i].quantity * arrLocalStorage[i].price).toFixed(2).replace('.', ',').toString();
+        request += `${quantity}kg - ${product} - R$ ${totalPrice}%0A`;
+    }
+    ;
+    console.log(request);
+    window.open(`https://api.whatsapp.com/send?phone=5585987692718&text=*Bem%20Vindo(a)%20%C3%A0%20Pig%20House*%F0%9F%90%B7%0A%0A*Pedido*%0A${request}%0A%0ATotal%20-%20R%24%20${totalSum.toFixed(2).replace('.', ',')}%0A%0A*Dados%20para%20Entrega*%0ANome%3A%20${Cform.nameInput.value}%0AEndere%C3%A7o%3A%20${Cform.address.value}%2C%20${Cform.number.value}%2C%20${Cform.complement.value}%0ABairro%3A%20${Cform.district.value}%0ACEP%3A%C2%A0${Cform.cep.value}`);
+    request = "";
+});
