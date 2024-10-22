@@ -460,7 +460,6 @@ body{
   display: none;
   padding: 10px;
   overflow-y: scroll;
-  align-items: center;
 
   .c-shoppingCart{ 
     background-color: #d9d9d9;
@@ -468,7 +467,7 @@ body{
     max-width: 500px;
     height: fit-content;
     padding: 1rem .5rem;
-    margin: 0 auto;
+    margin: auto;
     border-radius: 5px;
 
     .title-cart{
