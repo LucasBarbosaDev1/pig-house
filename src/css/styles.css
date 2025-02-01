@@ -48,11 +48,6 @@ body {
 .active::after {
   content: " ";
   width: 100% !important;
-  height: 2px;
-  background-color: #FFD600;
-  position: absolute;
-  bottom: 0;
-  left: 0;
 }
 
 .c-header {
@@ -115,6 +110,9 @@ body {
   left: 0;
   transition: 0.5s ease-in-out;
   text-shadow: 0px 0px 10px black;
+}
+.c-header .c-nav .c-nav__div .c-nav__links:hover {
+  color: #FFD600;
 }
 .c-header .c-nav .c-nav__div .c-nav__shoppingCart {
   position: relative;
@@ -285,15 +283,28 @@ body {
   font-family: "inter-light", sans-serif;
   font-size: 15px;
   width: 260px;
-  padding: 10px;
   border-radius: 50px;
   display: flex;
-  align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   margin: 1rem auto;
+  gap: 1rem;
 }
 .c-main .c-catalog .c-catalog__root .c-catalog__menu span {
   cursor: pointer;
+  transition: 0.5s;
+  padding: 0.7rem;
+  position: relative;
+}
+.c-main .c-catalog .c-catalog__root .c-catalog__menu span::after {
+  content: " ";
+  width: 0%;
+  height: 2px;
+  background-color: #FFD600;
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  transition: 0.5s ease-in-out;
+  text-shadow: 0px 0px 10px black;
 }
 .c-main .c-catalog .c-catalog__root .c-catalog__cards {
   display: flex;
@@ -351,6 +362,18 @@ body {
   font-size: 17px;
   border-radius: 5px;
   cursor: pointer;
+  transition: 0.5s;
+}
+.c-main .c-catalog .c-catalog__root .c-catalog__cards .c-product .c-product__buttons .btn-add:hover {
+  background-color: #FFD600;
+  color: #000;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.c-main .c-catalog .c-catalog__root .c-catalog__cards .c-product .c-product__buttons .btn-add:active {
+  background-color: #969696;
+  transition: 0s;
+  color: #fff;
 }
 
 .c-footer {
@@ -395,6 +418,12 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.c-footer .c-footer__root .c-footer__contain .c-footer__socialMedia a .icon-socialMedia {
+  transition: 0.5s;
+}
+.c-footer .c-footer__root .c-footer__contain .c-footer__socialMedia a .icon-socialMedia:hover {
+  scale: 1.3;
 }
 .c-footer .c-footer__root .c-footer__copyrights {
   display: flex;
@@ -451,6 +480,10 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+.c-modal .c-shoppingCart .products-cart .obsCart {
+  text-align: center;
+  font-family: inter-regular;
 }
 .c-modal .c-shoppingCart .products-cart .item-cart {
   display: flex;
@@ -570,6 +603,11 @@ body {
   padding: 5px;
   width: 100%;
 }
+.c-modal .c-shoppingCart .data-client form .camp-form input[type=number]::-webkit-outer-spin-button,
+.c-modal .c-shoppingCart .data-client form .camp-form input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 .c-modal .c-shoppingCart .data-client form .btns-form {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -582,12 +620,19 @@ body {
   height: 40px;
   border-radius: 5px;
   color: white;
+  cursor: pointer;
 }
 .c-modal .c-shoppingCart .data-client form .btns-form .btn-finish {
   background-color: #0EB000;
 }
+.c-modal .c-shoppingCart .data-client form .btns-form .btn-finish:hover {
+  background-color: #0a7500;
+}
 .c-modal .c-shoppingCart .data-client form .btns-form .btn-close {
   background-color: #FF2B2B;
+}
+.c-modal .c-shoppingCart .data-client form .btns-form .btn-close:hover {
+  background-color: #8f1616;
 }
 
 @media (min-width: 768px) {

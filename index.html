@@ -77,10 +77,12 @@
           <span>Catalog</span>
           <h3>CATÁLOGO</h3>
         </div>
+
         <div class="c-catalog__menu">
           <span class="m-linguica">LIGUINÇAS</span>
           <span class="m-carne">CARNES</span>
         </div>
+        
         <div class="c-catalog__cards">
           
         </div>
@@ -97,11 +99,11 @@
           <span>PIG HOUSE</span>
         </div>
         <div class="c-footer__socialMedia">
-          <a href="">
-            <img width="40" height="40" src="https://img.icons8.com/fluency/40/instagram-new.png" alt="instagram-new"/>
+          <a href="https://www.instagram.com/pighouselartesanais/" target="_blank">
+            <img width="40" height="40" src="https://img.icons8.com/fluency/40/instagram-new.png" alt="instagram-new" class="icon-socialMedia"/>
           </a>
-          <a href="">
-            <img width="40" height="40" src="https://img.icons8.com/fluency/40/whatsapp.png" alt="whatsapp"/>
+          <a href="https://api.whatsapp.com/send?1=pt_br&phone=5585996864370&fbclid=PAZXh0bgNhZW0CMTEAAabE98Jxpd9PZkJ4X6ZpD3XoIJksPqwBXMMNsTvPKyzlGXwHy2aH-7FCeHs_aem_JlkFfYPrRS88zFRUHezKGA" target="_blank">
+            <img width="40" height="40" src="https://img.icons8.com/fluency/40/whatsapp.png" alt="whatsapp" class="icon-socialMedia"/>
           </a>
         </div>
       </div>
@@ -136,17 +138,17 @@
         <form class="c-form">
           <div class="camp-form camp1">
             <label for="nameInput">Nome:</label>
-            <input type="text" name="nameInput" id="nameInput">
+            <input type="text" name="nameInput" id="nameInput" required>
           </div>
 
           <div class="camp-form camp2">
             <label for="address">Logradouro:</label>
-            <input type="text" name="address" id="address">
+            <input type="text" name="address" id="address" required>
           </div>
 
           <div class="camp-form camp3">
             <label for="number">Número:</label>
-            <input type="tel" name="number" id="number">
+            <input type="number" name="number" id="number" required min="1">
           </div>
 
           <div class="camp-form camp4">
@@ -156,12 +158,12 @@
 
           <div class="camp-form camp5">
             <label for="district">Bairro:</label>
-            <input type="text" name="district" id="district">
+            <input type="text" name="district" id="district" required>
           </div>
 
           <div class="camp-form camp6">
             <label for="cep">CEP:</label>
-            <input type="tel" name="cep" id="cep">
+            <input type="tel" name="cep" id="cep" min="1" maxlength="8" required>
           </div>
 
           <div class="btns-form camp7">

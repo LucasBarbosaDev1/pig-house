@@ -124,14 +124,14 @@ dataBase()
         }
         ;
         if (elementClass === 'm-linguica') {
-            mLinguica.style.color = '#FFD600';
-            mCarne.style.color = '#FFF';
+            mLinguica.classList.add('active');
+            mCarne.classList.remove('active');
             categoryProducts('linguica');
         }
         ;
         if (elementClass === 'm-carne') {
-            mCarne.style.color = '#FFD600';
-            mLinguica.style.color = '#FFF';
+            mCarne.classList.add('active');
+            mLinguica.classList.remove('active');
             categoryProducts('carne');
         }
     });
@@ -169,7 +169,7 @@ dataBase()
 const productsCart = document.querySelector('.products-cart');
 function renderProductsCart() {
     if (arrLocalStorage.length === 0) {
-        productsCart.innerHTML = `<span>Carrinho Vazio</span>`;
+        productsCart.innerHTML = `<span class="obsCart">Carrinho Vazio...</span>`;
     }
     else {
         const productCardShopping = arrLocalStorage.map((el) => {
@@ -281,6 +281,7 @@ cartNotificationFunction();
 // botoes do carrinho
 const Cform = document.querySelector('.c-form');
 const btnCloseModal = document.querySelector('.btn-close');
+const btnFinish = document.querySelector('.btn-finish');
 // função de fechar o modal
 btnCloseModal.addEventListener('click', (ev) => {
     ev.preventDefault();
@@ -297,7 +298,9 @@ Cform.addEventListener('submit', (ev) => {
         request += `${quantity}kg - ${product} - R$ ${totalPrice}%0A`;
     }
     ;
-    console.log(request);
-    window.open(`https://api.whatsapp.com/send?phone=5585987692718&text=*Bem%20Vindo(a)%20%C3%A0%20Pig%20House*%F0%9F%90%B7%0A%0A*Pedido*%0A${request}%0A%0ATotal%20-%20R%24%20${totalSum.toFixed(2).replace('.', ',')}%0A%0A*Dados%20para%20Entrega*%0ANome%3A%20${Cform.nameInput.value}%0AEndere%C3%A7o%3A%20${Cform.address.value}%2C%20${Cform.number.value}%2C%20${Cform.complement.value}%0ABairro%3A%20${Cform.district.value}%0ACEP%3A%C2%A0${Cform.cep.value}`);
+    if (arrLocalStorage.length > 0) {
+        window.open(`https://api.whatsapp.com/send?phone=5585987692718&text=*Bem%20Vindo(a)%20%C3%A0%20Pig%20House*%F0%9F%90%B7%0A%0A*Pedido*%0A${request}%0A%0ATotal%20-%20R%24%20${totalSum.toFixed(2).replace('.', ',')}%0A%0A*Dados%20para%20Entrega*%0ANome%3A%20${Cform.nameInput.value}%0AEndere%C3%A7o%3A%20${Cform.address.value}%2C%20${Cform.number.value}%2C%20${Cform.complement.value}%0ABairro%3A%20${Cform.district.value}%0ACEP%3A%C2%A0${Cform.cep.value}`);
+    }
+    ;
     request = "";
 });
