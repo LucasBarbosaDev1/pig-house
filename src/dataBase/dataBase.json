@@ -1,38 +1,83 @@
 [
   {
-    "id": "linguica1",
-    "image": "src/assets/products/linguica-apimentada.jpg",
+    "id": "1",
+    "image": "src/assets/products/linguiça-tradicional.webp",
+    "product": "LINGUIÇA TRADICIONAL",
+    "price": 27.00,
+    "description": "Linguiça de porco artesanal, feita com carinho e dedicação, utilizando apenas os melhores ingredientes. Ideal para churrascos, pratos principais ou como acompanhamento",
+    "quantity": 1,
+    "type": "linguica"
+  },
+  {
+    "id": "2",
+    "image": "src/assets/products/linguiça-apimentada.webp",
     "product": "LINGUIÇA APIMENTADA",
-    "price": 26.00,
-    "description": "Produzida 100% com cortes nobres de suíno, enrolada, temperada com especiarias naturais, levemente adicionada com pimenta vermelha.",
+    "price": 27.00,
+    "description": "Linguiça de porco apimentada artesanal, uma explosão de sabores! Perfeita para quem gosta de um toque picante em seus churrascos, pratos principais ou como acompanhamento.",
+    "quantity": 1,
+    "type": "linguica"
+  },
+  {
+    "id": "3",
+    "image": "src/assets/products/linguiça-com-queijo.webp",
+    "product": "LINGUIÇA COM QUEIJO",
+    "price": 27.00,
+    "description": "Linguiça de porco artesanal recheada com queijo: uma deliciosa combinação de sabores! Uma experiência gastronômica única",
+    "quantity": 1,
+    "type": "linguica"
+  },
+  {
+    "id": "4",
+    "image": "src/assets/products/toucinho.webp",
+    "product": "TOUCINHO",
+    "price": 23.00,
+    "description": "Toucinho de porco fresco e saboroso! Nosso toucinho é ideal para dar um toque especial aos seus pratos favoritos.",
     "quantity": 1,
     "type": "carne"
   },
   {
-    "id": "linguica2",
-    "image": "src/assets/products/linguica-apimentada.jpg",
-    "product": "LINGUIÇA COMUM",
-    "price": 30.00,
-    "description": "Produzida 100% com cortes nobres de suíno, enrolada, temperada com especiarias naturais",
+    "id": "5",
+    "image": "src/assets/products/costela.webp",
+    "product": "COSTELA",
+    "price": 27.00,
+    "description": "Costela de porco suculenta e saborosa! Perfeita para churrascos, grelhadas ou cozida com molhos deliciosos. Uma opção irresistível para qualquer ocasião!",
     "quantity": 1,
-    "type": "linguica"
+    "type": "carne"
   },
   {
-    "id": "linguica3",
-    "image": "src/assets/products/linguica-apimentada.jpg",
-    "product": "LINGUIÇA COMUM",
-    "price": 30.00,
-    "description": "Produzida 100% com cortes nobres de suíno, enrolada, temperada com especiarias naturais",
+    "id": "6",
+    "image": "src/assets/products/lombo.webp",
+    "product": "LOMBO",
+    "price": 27.00,
+    "description": "Lombo de porco macio e saboroso! Nosso lombo é ideal para grelhar, assar ou cozinhar com molhos deliciosos. Uma opção versátil e nutritiva para pratos principais ou acompanhamentos.",
     "quantity": 1,
-    "type": "linguica"
+    "type": "carne"
   },
   {
-    "id": "linguica4",
-    "image": "src/assets/products/linguica-apimentada.jpg",
-    "product": "LINGUIÇA COMUM",
-    "price": 30.00,
-    "description": "Produzida 100% com cortes nobres de suíno",
+    "id": "7",
+    "image": "src/assets/products/picanha.webp",
+    "product": "PICANHA",
+    "price": 28.00,
+    "description": "Picanha de porco: a estrela do churrasco! Com sua camada de gordura maravilhosa, nossa picanha é suculenta, saborosa e perfeita para grelhar. Uma opção de luxo para qualquer ocasião!",
     "quantity": 1,
-    "type": "linguica"
+    "type": "carne"
+  },
+  {
+    "id": "8",
+    "image": "src/assets/products/file.webp",
+    "product": "FILÉ",
+    "price": 28.00,
+    "description": "Filé de porco macio e suculento! Nosso filé é ideal para grelhar, assar ou cozinhar com molhos deliciosos. Uma opção saudável e saborosa para pratos principais ou acompanhamentos",
+    "quantity": 1,
+    "type": "carne"
+  },
+  {
+    "id": "9",
+    "image": "src/assets/products/bisteca.webp",
+    "product": "BISTECA",
+    "price": 27.00,
+    "description": "Bisteca de porco: sabor e textura perfeitos! Nossa bisteca é ideal para grelhar ou assar, revelando um sabor rico e uma textura macia.",
+    "quantity": 1,
+    "type": "carne"
   }
 ]
